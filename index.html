@@ -3,74 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>TikStake - Lock Your Crypto with Discipline</title>
+  <title>TIKSTAKE - Lock Your Crypto</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- HERO -->
-  <section id="hero" class="hero">
-    <div class="container hero-content">
-      <h1 class="main-title">Lock Your Crypto<br/>with Discipline</h1>
-      <p class="hero-desc">Choose Ethereum, Bitcoin, Solana or Other → pick lock period → get your deposit address.</p>
-      <button class="btn btn-primary" onclick="scrollToSection('flow')">
-        Start Locking
-      </button>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container nav-flex">
+      <div class="logo" onclick="gotoPage('home')">TIKSTAKE</div>
+      <nav id="mainNav">
+        <ul class="nav-links">
+          <li><a href="#" onclick="gotoPage('home')">Home</a></li>
+          <li><a href="#" onclick="gotoPage('about')">About</a></li>
+          <li><a href="#" onclick="gotoPage('faq')">FAQ</a></li>
+          <li><a href="#" onclick="gotoPage('contact')">Contact</a></li>
+        </ul>
+      </nav>
+      <button id="menuBtn" class="menu-btn" onclick="toggleMenu()">☰</button>
     </div>
-  </section>
+  </header>
 
-  <main class="container">
-    <!-- PROJECT OVERVIEW -->
-    <section id="overview" class="section">
-      <h2>Project Overview</h2>
-      <p class="justified">
-        TikStake is a custodial crypto-locking platform for users who struggle with long-term holding.
-        Select a lock duration, send your coins, and we keep them secure. Market gains or losses
-        go entirely to you—no returns promised.
-      </p>
-    </section>
-
-    <!-- ABOUT US -->
-    <section id="about" class="section bg-light">
-      <h2>About Us</h2>
-      <p class="justified">
-        Founded in Helsinki, 2025, TikStake unites blockchain security engineers and financial strategists.
-        Our mission is to help you stay the course in crypto by enforcing discipline through time-locks.
-      </p>
-    </section>
-
-    <!-- ASSET SELECTION & LOCK FLOW -->
-    <section id="flow" class="section">
-      <h2 class="main-title">Lock Your Asset</h2>
-      <div class="split-layout">
-        <div class="split-icons">
-          <div class="asset-grid">
-            <div class="asset-card" onclick="selectAsset('Ethereum')">
+  <main>
+    <!-- HOME PAGE -->
+    <section id="homePage" class="page">
+      <section class="hero">
+        <h1 class="main-title">Lock Your Crypto with Discipline</h1>
+        <p class="hero-desc">Choose Ethereum, Bitcoin, Solana or Other → pick lock period → get your deposit address.</p>
+      </section>
+      <!-- Split Asset Grid -->
+      <section id="assets" class="section">
+        <div class="split-asset-layout">
+          <div class="asset-col">
+            <div class="asset-card" onclick="openPortal('Ethereum')">
               <img src="Ethereum.png" alt="Ethereum" />
               <span>Ethereum</span>
             </div>
-            <div class="asset-card" onclick="selectAsset('Bitcoin')">
+            <div class="asset-card" onclick="openPortal('Bitcoin')">
               <img src="Bitcoin.png" alt="Bitcoin" />
               <span>Bitcoin</span>
             </div>
-            <div class="asset-card" onclick="selectAsset('Solana')">
+          </div>
+          <div class="asset-col">
+            <div class="asset-card" onclick="openPortal('Solana')">
               <img src="Solana.png" alt="Solana" />
               <span>Solana</span>
             </div>
-            <div class="asset-card" onclick="selectAsset('Other')">
+            <div class="asset-card" onclick="openPortal('Other')">
               <img src="Other.png" alt="Other" />
               <span>Other</span>
             </div>
           </div>
         </div>
-        <div class="split-info">
-          <img src="Ethereum.png" alt="Sample Illustration" class="split-illustration"/>
-          <p>Choose your asset and lock it securely with TikStake's trusted platform.</p>
+        <!-- Down Images, visible always -->
+        <div class="down-assets">
+          <div class="asset-card" onclick="openPortal('Cardano')">
+            <img src="Cardano.png" alt="Cardano" />
+            <span>Cardano</span>
+          </div>
+          <div class="asset-card" onclick="openPortal('Litecoin')">
+            <img src="Litecoin.png" alt="Litecoin" />
+            <span>Litecoin</span>
+          </div>
+          <!-- Add more as needed -->
         </div>
-      </div>
-
-      <!-- Lock Duration (hidden by default, revealed on asset click) -->
-      <div id="lock-duration-container" class="lock-duration-view" style="display:none;">
-        <h3 id="lock-title">Lock Duration for <span id="selectedAssetName"></span></h3>
+      </section>
+    </section>
+    
+    <!-- STAKING/LOCKING PORTAL (hidden by default) -->
+    <section id="portalPage" class="page" style="display:none;">
+      <button class="back-btn" onclick="closePortal()">← Back</button>
+      <h2 class="main-title" id="portalAssetTitle"></h2>
+      <div class="lock-duration-view">
+        <h3>Choose Lock Duration</h3>
         <div class="lock-options">
           <button onclick="selectPeriod('1 Month')">1 Month</button>
           <button onclick="selectPeriod('3 Months')">3 Months</button>
@@ -82,8 +86,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Deposit address view (hidden by default, shown after duration selection) -->
       <div id="deposit-address-container" class="deposit-address-view" style="display:none;">
         <h3>Deposit Address</h3>
         <p>Send your <span id="finalAsset"></span> for <span id="finalPeriod"></span> to:</p>
@@ -92,6 +94,29 @@
           <button class="btn-outline" onclick="copyAddress()">Copy</button>
         </div>
       </div>
+    </section>
+
+    <!-- ABOUT PAGE -->
+    <section id="aboutPage" class="page" style="display:none;">
+      <h2 class="main-title">About TikStake</h2>
+      <p class="justified">Founded in Helsinki, 2025, TikStake helps you stay the course in crypto by enforcing discipline through time-locks. Market gains or losses go entirely to you—no returns promised.</p>
+    </section>
+
+    <!-- FAQ PAGE -->
+    <section id="faqPage" class="page" style="display:none;">
+      <h2 class="main-title">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-q">How safe are my coins?</div>
+        <div class="faq-a">We use industry-standard custody solutions and multi-sig wallets.</div>
+        <div class="faq-q">Can I unlock before the time?</div>
+        <div class="faq-a">No. The lock is strict to help you maintain discipline.</div>
+      </div>
+    </section>
+
+    <!-- CONTACT PAGE -->
+    <section id="contactPage" class="page" style="display:none;">
+      <h2 class="main-title">Contact Us</h2>
+      <p class="justified">You can reach us at <a href="mailto:support@tikstake.com">support@tikstake.com</a>.</p>
     </section>
   </main>
 
