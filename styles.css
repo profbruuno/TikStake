@@ -17,7 +17,7 @@ body {
 }
 .container { width: 90%; max-width: 1000px; margin: 0 auto; }
 
-/* Navbar */
+/* NAVBAR */
 .navbar {
   background: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -40,15 +40,15 @@ body {
   padding: .5rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 .dropdown:hover .dropdown-menu { display: block; }
-.dropdown-menu li + li { margin-top: .25rem; }
-.dropdown-menu a { padding: .5rem 1rem; display: block; }
+.dropdown-menu li { margin: .25rem 0; }
+.dropdown-menu a { display: block; padding: .5rem 1rem; }
 
-/* Hero */
+/* HERO */
 .hero {
   background:
     linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
     url('https://images.unsplash.com/photo-1653533831457-6b4050c0d0a8?auto=format&fit=crop&w=1400')
-    center/cover no-repeat;
+    center/cover;
   color: #fff; text-align: center; height: 70vh;
   display: flex; align-items: center;
 }
@@ -56,8 +56,10 @@ body {
 .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
 .hero p { margin-bottom: 1.5rem; }
 .btn {
-  padding: .75rem 1.5rem; border: none; border-radius: var(--radius);
-  cursor: pointer; font-weight: 600; transition: background .2s;
+  padding: .75rem 1.5rem;
+  border: none; border-radius: var(--radius);
+  cursor: pointer; font-weight: 600;
+  transition: background .2s;
 }
 .btn-primary { background: var(--primary); color: #fff; }
 .btn-primary:hover { background: var(--primary-dark); }
@@ -67,15 +69,14 @@ body {
 }
 .btn-outline:hover { background: var(--primary); color: #fff; }
 
-/* Sections */
+/* SECTIONS */
 .section { padding: 4rem 0; background: var(--card-bg); }
 .section.bg-light { background: var(--light-bg); }
 h2 { margin-bottom: 1rem; font-size: 2rem; }
 
-/* Flow Views */
+/* FLOW VIEWS */
 .flow-view { display: none; }
 .flow-view.active { display: block; }
-
 /* Asset Grid */
 .asset-grid {
   display: grid;
@@ -83,10 +84,13 @@ h2 { margin-bottom: 1rem; font-size: 2rem; }
   gap: var(--gap); margin-top: var(--gap);
 }
 .asset-card {
-  background: var(--card-bg); border: 2px solid #ddd;
-  border-radius: var(--radius); padding: var(--gap);
-  cursor: pointer; text-align: center;
+  background: var(--card-bg);
+  border: 2px solid #ddd;
+  border-radius: var(--radius);
+  padding: var(--gap);
+  cursor: pointer;
   transition: border .2s, box-shadow .2s;
+  text-align: center;
 }
 .asset-card:hover {
   border-color: var(--primary);
@@ -94,6 +98,10 @@ h2 { margin-bottom: 1rem; font-size: 2rem; }
 }
 .asset-card img, .icon-phone {
   width: 48px; height: 48px; margin-bottom: .5rem;
+}
+.icon-phone {
+  display: inline-block;
+  background: url('data:image/svg+xml;utf8,<svg fill="%23007CC3" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.48 2.53.74 3.87.74a1 1 0 011 1v3.5a1 1 0 01-1 1C10.596 22 2 13.404 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.34.26 2.66.74 3.87a1 1 0 01-.21 1.11l-2.41 2.41z"/></svg>') no-repeat center/contain;
 }
 
 /* Lock Options */
@@ -112,25 +120,33 @@ h2 { margin-bottom: 1rem; font-size: 2rem; }
   border: 1px solid #ccc; border-radius: var(--radius);
 }
 
-/* Preformatted */
+/* Deposit View */
 pre {
   background: #eef; padding: 1rem;
-  border-radius: var(--radius); word-break: break-all;
-  margin: 1rem 0 2rem; max-width: 600px;
+  border-radius: var(--radius);
+  word-break: break-all; margin: 1rem auto;
+  max-width: 600px;
 }
+pre + .btn-outline { margin-top: 1rem; }
 
-/* Grid-4 */
+/* GRID LAYOUTS */
 .grid-4 {
-  display: grid; gap: var(--gap);
+  display: grid;
+  gap: var(--gap);
   grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
 }
 .card {
-  background: var(--card-bg); padding: var(--gap);
-  border-radius: var(--radius); text-align: center;
+  background: var(--card-bg);
+  padding: var(--gap);
+  border-radius: var(--radius);
+  text-align: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   transition: transform .2s;
 }
 .card:hover { transform: translateY(-5px); }
 
 /* Footer */
-.footer { text-align: center; padding: 2rem 0; color: #777; }
+.footer {
+  text-align: center; padding: 2rem 0;
+  color: #777;
+}
