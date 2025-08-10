@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>TIKSTAKE - Lock Your Crypto</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>TikStake - Crypto Time Lock Platform</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- NAVBAR -->
   <header class="navbar">
     <div class="container nav-flex">
-      <div class="logo" onclick="gotoPage('home')">TIKSTAKE</div>
+      <div class="logo" onclick="gotoPage('home')">TikStake</div>
       <nav id="mainNav">
         <ul class="nav-links">
           <li><a href="#" onclick="gotoPage('home')">Home</a></li>
-          <li><a href="#" onclick="gotoPage('about')">About</a></li>
-          <li><a href="#" onclick="gotoPage('faq')">FAQ</a></li>
-          <li><a href="#" onclick="gotoPage('contact')">Contact</a></li>
+          <li class="dropdown">
+            <a href="#" onclick="event.preventDefault()">More ▼</a>
+            <ul class="dropdown-menu">
+              <li><a href="#" onclick="gotoPage('overview')">Project Overview</a></li>
+              <li><a href="#" onclick="gotoPage('about')">About Us</a></li>
+              <li><a href="#" onclick="gotoPage('contact')">Contact</a></li>
+              <li><a href="#" onclick="gotoPage('whitepaper')">White Paper</a></li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <button id="menuBtn" class="menu-btn" onclick="toggleMenu()">☰</button>
@@ -27,101 +32,212 @@
     <!-- HOME PAGE -->
     <section id="homePage" class="page">
       <section class="hero">
-        <h1 class="main-title">Lock Your Crypto with Discipline</h1>
-        <p class="hero-desc">Choose Ethereum, Bitcoin, Solana or Other → pick lock period → get your deposit address.</p>
+        <h1 class="main-title">TikStake</h1>
+        <p class="hero-desc">
+          TikStake is a crypto time-lock platform that helps you securely lock Bitcoin, Ethereum, Solana, and more. Avoid impulsive selling and build discipline—your crypto stays safe for your chosen period.
+        </p>
       </section>
-      <!-- Split Asset Grid -->
+      <!-- Asset Grid -->
       <section id="assets" class="section">
-        <div class="split-asset-layout">
-          <div class="asset-col">
-            <div class="asset-card" onclick="openPortal('Ethereum')">
-              <img src="Ethereum.png" alt="Ethereum" />
-              <span>Ethereum</span>
-            </div>
-            <div class="asset-card" onclick="openPortal('Bitcoin')">
-              <img src="Bitcoin.png" alt="Bitcoin" />
-              <span>Bitcoin</span>
-            </div>
+        <div class="asset-grid-home">
+          <div class="asset-card" onclick="openPeriod('Ethereum')">
+            <img src="Ethereum.png" alt="Ethereum" />
           </div>
-          <div class="asset-col">
-            <div class="asset-card" onclick="openPortal('Solana')">
-              <img src="Solana.png" alt="Solana" />
-              <span>Solana</span>
-            </div>
-            <div class="asset-card" onclick="openPortal('Other')">
-              <img src="Other.png" alt="Other" />
-              <span>Other</span>
-            </div>
+          <div class="asset-card" onclick="openPeriod('Bitcoin')">
+            <img src="Bitcoin.png" alt="Bitcoin" />
           </div>
-        </div>
-        <!-- Down Images, visible always -->
-        <div class="down-assets">
-          <div class="asset-card" onclick="openPortal('Cardano')">
-            <img src="Cardano.png" alt="Cardano" />
-            <span>Cardano</span>
+          <div class="asset-card" onclick="openPeriod('Solana')">
+            <img src="Solana.png" alt="Solana" />
           </div>
-          <div class="asset-card" onclick="openPortal('Litecoin')">
-            <img src="Litecoin.png" alt="Litecoin" />
-            <span>Litecoin</span>
+          <div class="asset-card" onclick="openPeriod('Other')">
+            <img src="Other.png" alt="Other" />
           </div>
-          <!-- Add more as needed -->
         </div>
       </section>
     </section>
-    
-    <!-- STAKING/LOCKING PORTAL (hidden by default) -->
-    <section id="portalPage" class="page" style="display:none;">
-      <button class="back-btn" onclick="closePortal()">← Back</button>
-      <h2 class="main-title" id="portalAssetTitle"></h2>
+
+    <!-- PERIOD & DEPOSIT AREA -->
+    <section id="periodPage" class="page" style="display:none;">
+      <button class="back-btn" onclick="closePeriod()">← Back</button>
+      <h2 class="main-title" id="selectedAssetTitle"></h2>
       <div class="lock-duration-view">
-        <h3>Choose Lock Duration</h3>
+        <h3>Choose Lock Period</h3>
         <div class="lock-options">
-          <button onclick="selectPeriod('1 Month')">1 Month</button>
-          <button onclick="selectPeriod('3 Months')">3 Months</button>
           <button onclick="selectPeriod('6 Months')">6 Months</button>
+          <button onclick="selectPeriod('8 Months')">8 Months</button>
           <button onclick="selectPeriod('1 Year')">1 Year</button>
+          <button onclick="selectPeriod('2 Years')">2 Years</button>
+          <button onclick="selectPeriod('3 Years')">3 Years</button>
+          <button onclick="selectPeriod('4 Years')">4 Years</button>
+          <button onclick="selectPeriod('5 Years')">5 Years</button>
+          <button onclick="selectPeriod('10 Years')">10 Years</button>
+          <button onclick="selectPeriod('20 Years')">20 Years</button>
           <div class="custom">
-            <input type="text" id="customPeriod" placeholder="Custom (e.g. 2 Weeks)">
+            <input type="text" id="customPeriod" placeholder="Custom (e.g. 7 Months)">
             <button onclick="selectCustomPeriod()">Custom</button>
           </div>
         </div>
-      </div>
-      <div id="deposit-address-container" class="deposit-address-view" style="display:none;">
-        <h3>Deposit Address</h3>
-        <p>Send your <span id="finalAsset"></span> for <span id="finalPeriod"></span> to:</p>
-        <div class="address-box">
-          <span id="depositAddress"></span>
-          <button class="btn-outline" onclick="copyAddress()">Copy</button>
+        <div id="depositArea" class="deposit-area" style="display:none;">
+          <h4>Deposit Address</h4>
+          <div id="otherHelp" class="help-contact" style="display:none;">
+            <p>
+              Please <a href="mailto:spsys17@gmail.com">contact our customer service</a> to lock other assets.
+            </p>
+          </div>
+          <div id="addressBox" class="address-box" style="display:none; flex-direction:column;">
+            <!-- Spoiler/Reveal Address UI -->
+            <button id="showAddressBtn" class="btn-outline" onclick="revealAddress()" style="margin-bottom:10px;">Click to generate address</button>
+            <div id="addressSpinner" style="display:none; text-align:center; margin-bottom:10px;">
+              <span class="spinner"></span>
+              <span style="margin-left:10px;">Generating address...</span>
+            </div>
+            <div id="addressRevealed" style="display:none; align-items:center; flex-direction:row;">
+              <span class="address-text" style="font-family:monospace; font-size:1.1rem;"></span>
+              <button class="btn-outline" onclick="copyAddress()" style="margin-left:12px;">Copy</button>
+            </div>
+          </div>
+          <div class="deposit-proof">
+            <h5>Send Proof of Payment</h5>
+            <form id="proofForm" enctype="multipart/form-data" onsubmit="submitProof(event)">
+              <div class="form-group">
+                <label for="txHash">Transaction Hash</label>
+                <input type="text" id="txHash" required placeholder="Paste transaction hash" oninput="toggleProofButton()">
+              </div>
+              <div class="form-group">
+                <label for="fromAddress">Sending Address</label>
+                <input type="text" id="fromAddress" required placeholder="Your wallet sending address" oninput="toggleProofButton()">
+              </div>
+              <div class="form-group">
+                <label for="paymentPic">Screenshot / Picture</label>
+                <input type="file" id="paymentPic" accept="image/*" required>
+              </div>
+              <div class="form-group">
+                <label for="userEmail">Your Email (optional)</label>
+                <input type="email" id="userEmail" placeholder="Enter your email (optional)">
+              </div>
+              <div class="form-group">
+                <label for="nextOfKinEmail">Next of Kin Email (optional)</label>
+                <input type="email" id="nextOfKinEmail" placeholder="Enter next of kin's email (optional)">
+              </div>
+              <button type="submit" id="proofSubmitBtn" class="btn btn-primary" disabled>Submit Proof</button>
+            </form>
+            <div id="proofMsg" class="proof-msg"></div>
+          </div>
+          <div class="withdraw-info">
+            <p>
+              <strong>Withdrawals:</strong> Submit a request any time.<br>
+              Withdrawals are processed manually within 2 days after review.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT PAGE -->
-    <section id="aboutPage" class="page" style="display:none;">
-      <h2 class="main-title">About TikStake</h2>
-      <p class="justified">Founded in Helsinki, 2025, TikStake helps you stay the course in crypto by enforcing discipline through time-locks. Market gains or losses go entirely to you—no returns promised.</p>
+    <!-- PROJECT OVERVIEW PAGE -->
+    <section id="overviewPage" class="page" style="display:none;">
+      <h2 class="main-title">Project Overview</h2>
+      <p class="justified project-overview">
+        TikStake is your gateway to disciplined crypto investing, designed for those who find it challenging to hold onto their digital assets during volatile markets or tempting price surges. Our custodial time-lock platform empowers users to securely store Ethereum, Bitcoin, Solana, and other cryptocurrencies for fixed periods ranging from 6 months to 20 years, ensuring your original investment plan is honored. By removing the possibility of impulsive selling, TikStake helps you build genuine long-term wealth and develop better financial habits. Our robust security infrastructure, manual withdrawal review process, and dedicated support team are here to protect your assets and your peace of mind.
+      </p>
+      <p class="justified project-overview">
+        We do not promise any returns or interest. Whatever value your crypto accrues during the lock period is yours alone. Whether you are looking to avoid FOMO-based mistakes, safeguard your assets from quick liquidation, or simply build a disciplined approach to holding, TikStake is the trusted solution. Investors can download our detailed white paper to learn about our security standards, operational transparency, and vision for the future of disciplined crypto investing.
+      </p>
+      <ul class="project-points">
+        <li>No returns promised—just secure time-locking and full control of your gains.</li>
+        <li>If the value of your crypto increases, all gains are yours.</li>
+        <li>Withdrawal requests are reviewed and processed manually within 2 days for your security.</li>
+        <li>White paper available for investors and users to ensure transparency and trust.</li>
+        <li>Contact our team for custom lock requests or support with other cryptocurrencies.</li>
+      </ul>
     </section>
 
-    <!-- FAQ PAGE -->
-    <section id="faqPage" class="page" style="display:none;">
-      <h2 class="main-title">Frequently Asked Questions</h2>
-      <div class="faq-list">
-        <div class="faq-q">How safe are my coins?</div>
-        <div class="faq-a">We use industry-standard custody solutions and multi-sig wallets.</div>
-        <div class="faq-q">Can I unlock before the time?</div>
-        <div class="faq-a">No. The lock is strict to help you maintain discipline.</div>
+    <!-- ABOUT US PAGE -->
+    <section id="aboutPage" class="page" style="display:none;">
+      <h2 class="main-title">About Us</h2>
+      <p class="justified">
+        TikStake was founded in Helsinki in 2025 by a team of blockchain security engineers and financial strategists. Our vision is to help people conquer impulsive selling and build lasting crypto wealth through discipline and secure time-locks. With TikStake, you can rest assured that your assets are safe and only accessible after your chosen lock period ends.
+      </p>
+    </section>
+
+    <!-- CONTACT US PAGE -->
+    <section id="contactPage" class="page" style="display:none;">
+      <h2 class="main-title">Contact Us</h2>
+      <p class="justified">
+        Need help or want to lock unsupported crypto assets?<br>
+        Email us at <a href="mailto:spsys17@gmail.com">spsys17@gmail.com</a>
+      </p>
+      <div class="whitepaper-download">
+        <a href="#" onclick="gotoPage('whitepaper')" class="btn btn-primary">White Paper</a>
       </div>
     </section>
 
-    <!-- CONTACT PAGE -->
-    <section id="contactPage" class="page" style="display:none;">
-      <h2 class="main-title">Contact Us</h2>
-      <p class="justified">You can reach us at <a href="mailto:support@tikstake.com">support@tikstake.com</a>.</p>
+    <!-- WHITEPAPER PAGE -->
+    <section id="whitepaperPage" class="page" style="display:none;">
+      <h2 class="main-title">TikStake White Paper</h2>
+      <p class="justified">
+        <strong>Introduction</strong><br>
+        The cryptocurrency revolution has brought about new opportunities and challenges for investors and everyday users alike. While the decentralized nature of digital assets such as Bitcoin, Ethereum, Solana, and others has enabled global participation in financial markets, it has also exposed participants to the psychological challenges of market volatility. Many holders (so-called “HODLers”) find themselves selling too early, reacting emotionally to market swings, or falling prey to FOMO (fear of missing out), ultimately undermining their long-term wealth-building strategies.
+      </p>
+      <p class="justified">
+        <strong>Problem Statement</strong><br>
+        Despite widespread knowledge that a patient, long-term approach is often the most profitable strategy in the crypto space, the temptation to sell assets prematurely remains high. Many investors lack access to tools that help them enforce discipline, resulting in missed gains and regret. Existing custodial services may focus on trading or lending, but few offer specialized solutions for time-locking assets for an extended period.
+      </p>
+      <p class="justified">
+        <strong>Our Solution: TikStake</strong><br>
+        TikStake is a custodial crypto time-lock platform designed to empower individuals to build disciplined, long-term crypto wealth. Our platform allows users to lock their digital assets for periods ranging from 6 months to 20 years, with no promises of returns, interest, or yield generation. Instead, TikStake focuses on the psychological and practical benefits of enforced holding—removing the temptation of impulsive selling and ensuring that users stay true to their original investment goals.
+      </p>
+      <p class="justified">
+        <strong>How TikStake Works</strong><br>
+        1. <b>Asset Selection:</b> Users choose the digital asset they wish to lock—Bitcoin, Ethereum, Solana, or other supported coins.<br>
+        2. <b>Lock Period:</b> Users select a lock period from a range of options, or specify a custom time frame.<br>
+        3. <b>Deposit:</b> The platform generates a unique deposit address for the selected asset. The user sends their assets to this address.<br>
+        4. <b>Proof of Payment:</b> Users submit the transaction hash and a payment screenshot for verification.<br>
+        5. <b>Custody:</b> Assets are securely held in TikStake’s multi-signature, cold storage wallets. There is no lending, trading, or rehypothecation.<br>
+        6. <b>Withdrawal:</b> After the lock period expires, users may request withdrawal. Each request is manually reviewed and processed within two days for maximum security.
+      </p>
+      <p class="justified">
+        <strong>Security and Transparency</strong><br>
+        Security is at the heart of TikStake. All assets are held in cold storage, protected by multi-signature access and rigorous internal controls. The platform does not engage in lending or trading with user funds, eliminating counterparty risk. Manual review of withdrawal requests adds a human layer of scrutiny, reducing the risk of unauthorized access or social engineering attacks. TikStake is committed to transparency—users can monitor their lock status, and all operational processes are clearly documented.
+      </p>
+      <p class="justified">
+        <strong>No Promised Returns</strong><br>
+        Many platforms entice users with the promise of interest, yield farming, or staking rewards. TikStake takes a different approach: we promise nothing but the safe custody and timely return of your original assets. Any appreciation in value during the lock period belongs entirely to the user. This approach eliminates hidden risks and aligns with the principle of true holding.
+      </p>
+      <p class="justified">
+        <strong>Why Use TikStake?</strong><br>
+        - Prevents emotional or impulse-driven selling<br>
+        - Enforces disciplined, long-term investing habits<br>
+        - Zero exposure to risky lending or trading practices<br>
+        - Transparent, user-friendly, and secure<br>
+        - Suitable for both individuals and institutions seeking to lock funds for a set period
+      </p>
+      <p class="justified">
+        <strong>Supported Assets and Custom Requests</strong><br>
+        TikStake currently supports Bitcoin, Ethereum, Solana, and other major cryptocurrencies. For users wishing to lock unsupported assets, our team offers custom solutions and personalized support.
+      </p>
+      <p class="justified">
+        <strong>Withdrawal and Customer Service</strong><br>
+        Withdrawals are never automatic—all requests are manually reviewed to combat fraud and protect user security. Our customer service team is available to assist with withdrawal requests, custom lock configurations, and any concerns throughout the lock period.
+      </p>
+      <p class="justified">
+        <strong>Next of Kin & Security</strong><br>
+        Users are encouraged to provide a next of kin email address when submitting their deposit. In the event of the user's death, TikStake will use this information to help ensure that your crypto can be securely transferred to your designated beneficiary, after proper verification. Providing your own email and next of kin details is completely optional but strongly recommended for long-term peace of mind.
+      </p>
+      <p class="justified">
+        <strong>Vision and Roadmap</strong><br>
+        TikStake’s vision is to be the world’s most trusted platform for disciplined crypto holding. We plan to expand our asset support, enhance auditing and reporting features, and explore advanced custody solutions for both retail and institutional clients. Our commitment is to the security, transparency, and empowerment of every user.
+      </p>
+      <p class="justified">
+        <strong>Conclusion</strong><br>
+        TikStake is the answer for anyone seeking to build real, long-lasting wealth in the crypto space without the distractions and risks of trading or lending platforms. By making long-term holding easy, secure, and disciplined, we help users unlock the true power of their crypto assets.<br>
+        <br>
+        For more information, questions, or to begin your time-lock journey, contact us at <a href="mailto:spsys17@gmail.com">spsys17@gmail.com</a>.
+      </p>
     </section>
   </main>
 
   <footer class="footer">
-    &copy; 2025 TikStake. All rights reserved.
+    2025 TikStake. All rights reserved.
   </footer>
   <script src="script.js"></script>
 </body>
