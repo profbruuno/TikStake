@@ -1,21 +1,12 @@
-// TikStake UI interactions
-
-// Scroll to section
+// Smooth scroll to sections
 function scrollToSection(id) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: "smooth" });
 }
 
-// Flow state
+// State variables
 let selectedAsset = null;
 let selectedPeriod = null;
-
-// Step view switching
-function showView(id) {
-  document.querySelectorAll('.flow-view').forEach(v => v.classList.remove('active'));
-  const el = document.getElementById(id);
-  if (el) el.classList.add('active');
-}
 
 // Asset selection
 function selectAsset(asset) {
@@ -29,8 +20,13 @@ function selectAsset(asset) {
       card.classList.add('selected');
     }
   });
-  showView('view-lock');
-  document.getElementById('lock-title').textContent = `Lock ${asset} For…`;
+
+  // Show the lock duration view and update title
+  document.getElementById('lock-duration-container').style.display = 'block';
+  document.getElementById('selectedAssetName').textContent = asset;
+
+  // Hide deposit address view if previously shown
+  document.getElementById('deposit-address-container').style.display = 'none';
 }
 
 // Lock period selection
@@ -48,9 +44,12 @@ function selectCustomPeriod() {
 }
 
 function showDeposit() {
-  showView('view-address');
+  // Hide lock duration, show deposit address
+  document.getElementById('lock-duration-container').style.display = 'none';
+  document.getElementById('deposit-address-container').style.display = 'block';
   document.getElementById('finalAsset').textContent = selectedAsset;
   document.getElementById('finalPeriod').textContent = selectedPeriod;
+
   // Address generation placeholder logic
   document.getElementById('depositAddress').textContent = generateAddress(selectedAsset);
 }
