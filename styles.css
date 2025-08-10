@@ -1,32 +1,238 @@
-:root {
-  --primary: #3a7afe;
-  --primary-dark: #2056c3;
-  --accent: #ffb545;
-  --light-bg: #f6f8fa;
-  --card-bg: #fff;
-  --radius: 14px;
-  --font: 'Inter', 'Segoe UI', Arial, sans-serif;
-  --gap: 2rem;
-  --shadow: 0 8px 32px 0 rgba(60,60,100,.1);
+/* Example styles for TikStake landing page */
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background: #fafbfc;
+  margin: 0;
+  color: #222;
+}
+a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
-/* ...rest of your styles... */
-
-.asset-card img,
-.icon-phone {
-  width: 36px; /* Reduced from 54px */
-  height: 36px; /* Reduced from 54px */
-  margin-bottom: .5rem; /* Slightly tighter spacing */
-  filter: drop-shadow(0 2px 6px rgba(58,122,254,0.04));
+header.navbar {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: -1px;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+.nav-links li {
+  position: relative;
+}
+.nav-links .dropdown-menu {
+  display: none;
+  position: absolute;
+  background: #fff;
+  top: 2.1rem;
+  left: 0;
+  box-shadow: 0 0 12px #0002;
+  border-radius: 5px;
+  padding: 0.5rem 0;
+  min-width: 170px;
+  z-index: 100;
+}
+.nav-links .dropdown:hover .dropdown-menu {
+  display: block;
+}
+.nav-links .dropdown-menu li {
+  padding: 0.5rem 1.2rem;
+}
+.nav-links .dropdown-menu li:hover {
+  background: #f0f4f8;
 }
 
-/* Responsive tweak for very small screens */
-@media (max-width: 480px) {
-  .asset-card img,
-  .icon-phone {
-    width: 28px;
-    height: 28px;
+.hero {
+  background: linear-gradient(120deg, #a7f3d0 0%, #f0abfc 100%);
+  padding: 4rem 0 3rem 0;
+  border-radius: 0 0 40px 40px;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 0.6rem;
+}
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 1.6rem;
+}
+.btn {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  padding: 0.8rem 2.1rem;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.2s;
+}
+.btn-primary {
+  background: #3b82f6;
+}
+.btn-outline {
+  background: #fff;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
+}
+.btn-outline:hover {
+  background: #e0eaff;
+}
+.btn:hover {
+  background: #2563eb;
+}
+
+main.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 1rem 1.5rem;
+}
+
+.section {
+  margin-bottom: 3.2rem;
+}
+.section h2 {
+  margin-bottom: 0.7rem;
+  font-size: 2.1rem;
+  font-weight: 600;
+}
+.section p {
+  font-size: 1.13rem;
+  color: #444;
+}
+
+.bg-light {
+  background: #f7fafc;
+  border-radius: 13px;
+  padding: 1.5rem 1rem;
+}
+
+.asset-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin: 1.8rem 0;
+}
+.asset-card {
+  background: #fff;
+  padding: 1.35rem 0.3rem 0.8rem 0.3rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 14px #0001;
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+  text-align: center;
+}
+.asset-card:hover {
+  box-shadow: 0 4px 24px #0002;
+  transform: translateY(-4px) scale(1.03);
+}
+.asset-card img {
+  width: 54px;
+  height: 54px;
+  margin-bottom: 0.8rem;
+}
+.asset-card.selected {
+  border: 2px solid #3b82f6;
+}
+
+.lock-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin: 1.2rem 0 1.5rem 0;
+}
+.lock-options button {
+  background: #f3f4f6;
+  border: none;
+  color: #222;
+  border-radius: 6px;
+  padding: 0.7rem 1.9rem;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.lock-options button:hover {
+  background: #dbeafe;
+}
+.custom {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+}
+.custom input[type="text"] {
+  border: 1px solid #bbb;
+  border-radius: 7px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  width: 180px;
+}
+.custom button {
+  padding: 0.6rem 1.3rem;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.3rem;
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #0001;
+  text-align: center;
+  padding: 1.1rem 0.3rem 0.7rem 0.3rem;
+}
+.card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 0.7rem;
+}
+
+.footer {
+  background: #fff;
+  border-top: 1px solid #eee;
+  text-align: center;
+  padding: 1.3rem 0;
+  margin-top: 3rem;
+  color: #888;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .asset-grid,
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  main.container {
+    padding: 1rem;
   }
 }
-
-/* ...rest of your styles remain unchanged... */
+@media (max-width: 450px) {
+  .asset-grid,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
