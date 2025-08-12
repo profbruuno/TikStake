@@ -15,13 +15,13 @@ function gotoPage(page) {
   }
 }
 function toggleMenu() {
-  const navLinks = document.getElementById('mainNav').querySelector('.nav-links');
+  var navLinks = document.querySelector('.nav-links');
   navLinks.classList.toggle('active');
 }
 document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
-      document.getElementById('mainNav').querySelector('.nav-links').classList.remove('active');
+      document.querySelector('.nav-links').classList.remove('active');
     });
   });
   // User login feedback clear on typing
