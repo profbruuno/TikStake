@@ -114,7 +114,7 @@ function showUserRegister() {
   document.getElementById('showRegisterTab').classList.add('btn-primary');
   document.getElementById('showLoginTab').classList.remove('btn-primary');
 }
-function userRegister(event) {
+async function userRegister(event) {
   event.preventDefault();
   const email = document.getElementById('registerEmail').value.trim().toLowerCase();
   const password = document.getElementById('registerPassword').value;
@@ -131,7 +131,7 @@ function userRegister(event) {
   setCurrentUser(user);
   document.getElementById('userLoginMessage').style.color = '#16a34a';
   document.getElementById('userLoginMessage').textContent = 'Account created and logged in!';
-  showUserDashboard();
+  await showUserDashboard();
   document.getElementById('userAreaPage').style.display = 'block';
 }
 function userLogin(event) {
@@ -142,14 +142,14 @@ function userLogin(event) {
   msg.textContent = '';
   msg.style.color = "#6366f1";
   msg.textContent = "Logging in...";
-  setTimeout(() => {
+  setTimeout(async () => {
     let users = getUsers();
     let user = users.find(u => u.email === email && u.password === password);
     if (user) {
       setCurrentUser(user);
       msg.style.color = "#16a34a";
       msg.textContent = "Login successful!";
-      showUserDashboard();
+      await showUserDashboard();
       document.getElementById('userAreaPage').style.display = 'block';
     } else {
       msg.style.color = "#dc2626";
@@ -157,12 +157,36 @@ function userLogin(event) {
     }
   }, 400);
 }
-function showUserDashboard() {
+async function showUserDashboard() {
   document.getElementById('userAccountCard').style.display = 'none';
   document.getElementById('userDashboard').style.display = '';
   let user = getCurrentUser();
   document.getElementById('dashboardUserEmail').textContent = user.email;
-  renderUserLockCards(user.locks);
+  
+  // Show loading message while fetching from Supabase
+  const container = document.getElementById('userCardsContainer');
+  container.innerHTML = '<div class="overview-card intro-card">Loading your locks...</div>';
+  
+  try {
+    // Fetch locks from Supabase instead of localStorage
+    const locks = await fetchUserLocks(user.email);
+    
+    // Add data source indicator
+    const dataSource = isSupabaseReady() ? 'Supabase' : 'localStorage (demo)';
+    console.log(`Locks loaded from: ${dataSource}`);
+    
+    renderUserLockCards(locks);
+    
+    // Add a small indicator to show data source
+    if (!isSupabaseReady()) {
+      container.innerHTML += '<div class="overview-card intro-card" style="background: #fef3c7; border-color: #d97706; color: #92400e; margin-top: 1rem;"><strong>Demo Mode:</strong> Supabase is not available. Showing data from localStorage. In production, this would load from your Supabase database.</div>';
+    } else {
+      container.innerHTML += '<div class="overview-card intro-card" style="background: #ecfdf5; border-color: #10b981; color: #065f46; margin-top: 1rem;"><strong>Live Data:</strong> Locks loaded from Supabase database.</div>';
+    }
+  } catch (error) {
+    console.error('Error loading user locks:', error);
+    container.innerHTML = '<div class="overview-card intro-card" style="color: #dc2626;">Error loading locks. Please try again later.</div>';
+  }
 }
 function userLogout() {
   setCurrentUser(null);
@@ -325,12 +349,12 @@ function submitProof(event) {
   toggleProofButton();
 }
 // On load, show dashboard if already logged in
-window.onload = function() {
+window.onload = async function() {
   let user = getCurrentUser();
   if (user) {
     document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
     document.getElementById('userAreaPage').style.display = 'block';
-    showUserDashboard();
+    await showUserDashboard();
   } else {
     gotoPage('home');
   }
