@@ -3,305 +3,163 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>TikStake - Secure Crypto Time-Lock</title>
+  <title>TikStake</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="navbar new-navbar">
-    <div class="container nav-flex">
-      <div class="logo" onclick="gotoPage('home')">TikStake</div>
-      <nav id="mainNav">
-        <ul class="nav-links">
-          <li><a href="#" onclick="gotoPage('home')">Home</a></li>
-          <li><a href="#" onclick="gotoPage('overview')">Overview</a></li>
-          <li><a href="#" onclick="gotoPage('about')">About</a></li>
-          <li><a href="#" onclick="gotoPage('contact')">Contact</a></li>
-          <li><a href="#" onclick="gotoPage('whitepaper')">Whitepaper</a></li>
-          <li><a href="#" onclick="gotoPage('userArea')">User Area</a></li>
-        </ul>
-      </nav>
-      <button id="menuBtn" class="menu-btn" onclick="toggleMenu()">☰</button>
-    </div>
-  </header>
+  <!-- Navigation bar -->
+  <nav>
+    <a href="#landing">Home</a>
+    <a href="#choose-assets">Choose Assets</a>
+    <a href="#exchanges">Exchanges</a>
+    <a href="#user-area">User Area</a>
+  </nav>
 
-  <main>
-    <!-- HOME PAGE -->
-    <section id="homePage" class="page home-landing" style="display:block;">
-      <div class="home-cards-container">
-        <div class="overview-card intro-card">
-          <div class="hero-card-flex">
-            <div>
-              <h1 class="main-title hero-title">Hold Strong.<br><span class="gradient-text">Lock Crypto Safely.</span></h1>
-              <p class="hero-desc hero-desc-lg">
-                TikStake secures your Bitcoin, Ethereum, Solana and more for 6 months to 20 years. Avoid FOMO, protect wealth, and let time do its work. <br>
-                <span class="tagline">No yield traps. No distractions. Just simple, <b>safe HODLing</b>.</span>
-              </p>
-              <div class="cta-row">
-                <a href="#" onclick="openPeriod('Ethereum')" class="btn btn-primary cta-btn">Start Locking Now</a>
-                <a href="#" onclick="gotoPage('whitepaper')" class="btn btn-secondary cta-btn">View Whitepaper</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="overview-card">
-          <h2 class="section-title" style="text-align:center;">Choose an Asset to Lock</h2>
-          <div class="asset-grid-modern">
-            <div class="asset-card-modern" onclick="openPeriod('Ethereum')">
-              <img src="Ethereum.png" alt="Ethereum" />
-              <span class="asset-label">Ethereum</span>
-            </div>
-            <div class="asset-card-modern" onclick="openPeriod('Bitcoin')">
-              <img src="Bitcoin.png" alt="Bitcoin" />
-              <span class="asset-label">Bitcoin</span>
-            </div>
-            <div class="asset-card-modern" onclick="openPeriod('Solana')">
-              <img src="Solana.png" alt="Solana" />
-              <span class="asset-label">Solana</span>
-            </div>
-            <div class="asset-card-modern" onclick="openPeriod('Other')">
-              <img src="Other.png" alt="Other" />
-              <span class="asset-label">Other</span>
-            </div>
-          </div>
-        </div>
-        <div class="overview-card">
-          <div class="feature-highlight-modern" style="margin:0;">
-            <div class="feature-card-modern">
-              <span class="feature-icon">🔒</span>
-              <div class="feature-title">Ultra Secure</div>
-              <div class="feature-desc">Multi-signature cold storage. No lending or rehypothecation.</div>
-            </div>
-            <div class="feature-card-modern">
-              <span class="feature-icon">⏳</span>
-              <div class="feature-title">Long-Term Focus</div>
-              <div class="feature-desc">Lock for 6 months up to 20 years. No interest, no distractions.</div>
-            </div>
-            <div class="feature-card-modern">
-              <span class="feature-icon">🧑‍⚖️</span>
-              <div class="feature-title">Manual Withdrawals</div>
-              <div class="feature-desc">Every withdrawal is reviewed for your safety and control.</div>
-            </div>
-            <div class="feature-card-modern">
-              <span class="feature-icon">👨‍👩‍👧‍👦</span>
-              <div class="feature-title">Next of Kin Option</div>
-              <div class="feature-desc">Add a beneficiary in case of emergency for extra peace of mind.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- Landing Section -->
+  <section id="landing">
+    <h1>Welcome to TikStake</h1>
+    <p>Your one-stop platform for managing and tracking your asset portfolio.</p>
+  </section>
 
-    <!-- PERIOD & DEPOSIT AREA CARD -->
-    <section id="periodPage" class="page lock-page-modern" style="display:none;">
-      <div class="overview-card intro-card" style="max-width:480px;margin:2rem auto;">
-        <h2 style="margin-top:0;">Lock <span id="selectedAssetTitle">Asset</span></h2>
-        <div style="margin-bottom:1rem;">
-          <label for="lockPeriodSel"><b>Choose Lock Period:</b></label>
-          <select id="lockPeriodSel" style="width:100%;margin-top:0.5rem;" onchange="selectPeriod(this.value)">
-            <option value="">Select period</option>
-            <option value="6 months">6 months</option>
-            <option value="1 year">1 year</option>
-            <option value="2 years">2 years</option>
-            <option value="5 years">5 years</option>
-            <option value="10 years">10 years</option>
-            <option value="custom">Custom...</option>
-          </select>
-          <input type="text" id="customPeriod" placeholder="Custom period (e.g., 3.5 years)" style="display:none;width:100%;margin-top:0.5rem;" onblur="selectCustomPeriod()"/>
-        </div>
-        <div id="depositArea" style="display:none;">
-          <p style="margin-bottom:0.5rem;">Send your <span id="selectedAssetHint">Asset</span> to:</p>
-          <div id="addressBox" style="display:flex;align-items:center;gap:1rem;">
-            <button id="showAddressBtn" onclick="revealAddress()" style="padding:0.5rem 1rem;">Show Address</button>
-            <span id="addressSpinner" style="display:none;">Loading...</span>
-            <span id="addressRevealed" style="display:none;">
-              <span class="address-text" style="font-family:monospace;"></span>
-              <button type="button" class="copy-btn-modern" onclick="copyAddress()">📋</button>
-            </span>
-          </div>
-          <div id="otherHelp" style="display:none;">
-            <em>Contact us for custom asset instructions.</em>
-          </div>
-          <form id="proofForm" onsubmit="submitProof(event)" style="margin-top:1.2rem;">
-            <label>Transaction Hash:<br><input id="txHash" required oninput="toggleProofButton()" style="width:100%;" /></label><br>
-            <label>From Address:<br><input id="fromAddress" required oninput="toggleProofButton()" style="width:100%;" /></label><br>
-            <label>Payment Screenshot:<br><input type="file" id="paymentPic" required /></label><br>
-            <label>Your Email (for receipt):<br><input type="email" id="userEmail" style="width:100%;" /></label><br>
-            <label>Next of Kin Email (optional):<br><input type="email" id="nextOfKinEmail" style="width:100%;" /></label><br>
-            <button type="submit" id="proofSubmitBtn" disabled style="margin-top:0.6rem;">Submit Proof</button>
-          </form>
-          <div id="proofMsg" style="margin-top:0.8rem;"></div>
-        </div>
-        <button onclick="closePeriod()" style="margin-top:1.3rem;">Back</button>
-      </div>
-    </section>
+  <!-- Asset Selection Section -->
+  <section id="choose-assets">
+    <h2>Choose Your Assets</h2>
+    <!-- Asset selection UI goes here -->
+  </section>
 
-    <!-- USER AREA SECTION -->
-    <section id="userAreaPage" class="page user-area-section" style="display:none;">
-      <div class="overview-card intro-card" style="max-width:440px;margin:2rem auto;" id="userAccountCard">
-        <div id="userAccountTabs" style="display:flex;gap:1em;margin-bottom:1.4em;">
-          <button id="showLoginTab" onclick="showUserLogin()" class="cta-btn btn-secondary" style="flex:1;">Login</button>
-          <button id="showRegisterTab" onclick="showUserRegister()" class="cta-btn btn-secondary" style="flex:1;">Register</button>
-        </div>
-        <form id="userLoginForm" onsubmit="userLogin(event)" style="display:block;">
-          <label>Email:<br>
-            <input type="email" id="loginEmail" required style="width:100%;margin-bottom:0.8em;">
-          </label>
-          <label>Password:<br>
-            <input type="password" id="loginPassword" required style="width:100%;margin-bottom:1em;">
-          </label>
-          <button type="submit" class="cta-btn btn-primary" style="width:100%;">Login</button>
-        </form>
-        <form id="userRegisterForm" onsubmit="userRegister(event)" style="display:none;">
-          <label>Email:<br>
-            <input type="email" id="registerEmail" required style="width:100%;margin-bottom:0.8em;">
-          </label>
-          <label>Password:<br>
-            <input type="password" id="registerPassword" required style="width:100%;margin-bottom:1em;">
-          </label>
-          <button type="submit" class="cta-btn btn-primary" style="width:100%;">Create Account</button>
-        </form>
-        <div id="userLoginMessage" style="color:#dc2626;margin-top:1em;text-align:center;font-weight:bold;min-height:1.5em;"></div>
-      </div>
-      <div id="userDashboard" style="display:none;max-width:800px;margin:2.4rem auto 2rem auto;">
-        <div class="overview-card intro-card" style="margin-bottom:2rem;">
-          <h2 style="margin-top:0;">Welcome, <span id="dashboardUserEmail"></span></h2>
-          <button onclick="userLogout()" class="cta-btn btn-secondary" style="float:right;font-size:1rem;padding:0.5em 1.2em;margin-top:-2.5em;">Logout</button>
-          <div style="clear:both;"></div>
-        </div>
-        <div id="userCardsContainer" class="overview-cards-container">
-        </div>
-      </div>
-    </section>
+  <!-- Exchanges Section -->
+  <section id="exchanges">
+    <h2>Connect with Exchanges</h2>
+    <!-- Exchange connection UI goes here -->
+  </section>
 
-    <!-- OVERVIEW PAGE -->
-    <section id="overviewPage" class="page overview-cards-layout" style="display:none;">
-      <div class="overview-cards-container">
-        <div class="overview-card intro-card">
-          <h1 class="info-title">Project Overview</h1>
-          <p>
-            <b>TikStake</b> is your discipline engine for crypto wealth.<br>
-            Our custodial <span class="highlight">time-lock platform</span> empowers you to safely store <span class="highlight">Bitcoin, Ethereum, Solana</span>, and other currencies for fixed periods.
-          </p>
-          <div class="overview-tagline">We remove the risk of impulsive selling — building confidence and security for your future self.</div>
-        </div>
-        <div class="overview-card feature-card">
-          <div class="feature-icon">🔒</div>
-          <div>
-            <div class="feature-title">No Promises, No Traps</div>
-            <div class="feature-desc">We do <b>not</b> offer yield or risky lending. Only disciplined, secure time-locking.</div>
-          </div>
-        </div>
-        <div class="overview-card feature-card">
-          <div class="feature-icon">🚀</div>
-          <div>
-            <div class="feature-title">All Gains Are Yours</div>
-            <div class="feature-desc">If your coins appreciate, you keep <b>100%</b> of the upside.</div>
-          </div>
-        </div>
-        <div class="overview-card feature-card">
-          <div class="feature-icon">👁️</div>
-          <div>
-            <div class="feature-title">Manual Withdrawals</div>
-            <div class="feature-desc">Extra security through human review. Withdrawals processed within <b>2 business days</b>.</div>
-          </div>
-        </div>
-        <div class="overview-card feature-card">
-          <div class="feature-icon">📖</div>
-          <div>
-            <div class="feature-title">Fully Transparent</div>
-            <div class="feature-desc">
-              <a href="#" onclick="gotoPage('whitepaper')">Read our whitepaper</a> for security, custody, and process details.
-            </div>
-          </div>
-        </div>
-        <div class="overview-card feature-card">
-          <div class="feature-icon">🌐</div>
-          <div>
-            <div class="feature-title">Custom Requests</div>
-            <div class="feature-desc">Contact us to lock custom or rare crypto assets.</div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- User Area Section -->
+  <section id="user-area">
+    <h2>User Area</h2>
 
-    <!-- ABOUT US PAGE -->
-    <section id="aboutPage" class="page info-page-modern" style="display:none;">
-      <div class="info-card-modern">
-        <h2 class="main-title info-title">About Us</h2>
-        <p>
-          TikStake was founded in Helsinki in 2025 by blockchain security engineers and financial strategists. We help people conquer impulsive selling and build lasting crypto wealth through discipline and secure time-locks. With TikStake, your assets are safe and only released after your chosen lock period ends. <br><br>
-          <b>Our mission:</b> Protect long-term HODLers from their own emotions and market noise — and help them win.
-        </p>
-      </div>
-    </section>
+    <!-- Email/Password Auth Form -->
+    <form id="email-form">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Sign In / Register with Email</button>
+    </form>
 
-    <!-- CONTACT US PAGE -->
-    <section id="contactPage" class="page info-page-modern" style="display:none;">
-      <div class="info-card-modern">
-        <h2 class="main-title info-title">Contact Us</h2>
-        <p>
-          Need help or want to lock unsupported cryptocurrencies?<br>
-          Email our team at <a href="mailto:spsys17@gmail.com">spsys17@gmail.com</a>
-        </p>
-        <div class="whitepaper-download-modern">
-          <a href="#" onclick="gotoPage('whitepaper')" class="btn btn-primary">View Whitepaper</a>
-        </div>
-      </div>
-    </section>
+    <!-- Phone Auth Form -->
+    <form id="phone-form">
+      <input type="tel" id="phone-number" placeholder="Phone number (+1234567890)" required />
+      <div id="recaptcha-container"></div>
+      <button type="submit">Send Verification Code</button>
+      <input type="text" id="verification-code" placeholder="Verification code" style="display:none;" />
+      <button type="button" id="verify-code" style="display:none;">Verify Code</button>
+    </form>
 
-    <!-- WHITEPAPER PAGE -->
-    <section id="whitepaperPage" class="page info-page-modern" style="display:none;">
-      <div class="info-card-modern">
-        <h2 class="main-title info-title">TikStake White Paper</h2>
-        <p>
-          <b>Introduction</b><br>
-          Cryptocurrency empowers individuals worldwide, but the temptation to trade and sell at emotional moments destroys long-term gains. TikStake is built for those who want to lock in their commitment and reap the true rewards of patience.
-        </p>
-        <p>
-          <b>Problem Statement</b><br>
-          Few platforms prioritize the psychological discipline required to build long-term wealth. Most try to entice users with yield or trading — increasing risk and distraction. True HODLers need a dedicated, secure time-locking service.
-        </p>
-        <p>
-          <b>Our Solution</b><br>
-          TikStake is a custodial time-lock platform: you select your asset and period, deposit funds, and we securely store your crypto until the lock expires. No interest, no rehypothecation, no distractions.
-        </p>
-        <ul>
-          <li><b>Asset Selection:</b> Choose Bitcoin, Ethereum, Solana, or request custom support.</li>
-          <li><b>Lock Period:</b> Ranging from 6 months to 20 years.</li>
-          <li><b>Deposit:</b> Receive a unique address. Send your crypto and submit proof.</li>
-          <li><b>Custody:</b> Funds held in cold storage, never lent or traded.</li>
-          <li><b>Withdrawal:</b> After the lock, request a withdrawal. Processed manually for security.</li>
-        </ul>
-        <p>
-          <b>Security & Transparency</b><br>
-          All assets are stored offline, protected by multi-signature wallets. Manual review of every withdrawal request reduces fraud and social engineering risks.
-        </p>
-        <p>
-          <b>No Promised Returns</b><br>
-          You keep all value appreciation. TikStake’s only guarantee is safe custody and timely return — no hidden risk, no yield farming, no leverage.
-        </p>
-        <p>
-          <b>Next of Kin & Security</b><br>
-          We encourage users to provide a next of kin email address when submitting a deposit. In the event of death, this helps ensure your crypto can be securely transferred to your beneficiary after proper verification. Next of kin is optional but recommended for peace of mind.
-        </p>
-        <p>
-          <b>Vision</b><br>
-          TikStake aims to be the world’s most trusted home for disciplined crypto holding. We’re expanding asset support, enhancing reporting, and building for both individuals and institutions.
-        </p>
-        <p>
-          <b>Conclusion</b><br>
-          Build real wealth through patience. TikStake gives you the discipline, security, and support to let time work for you.<br>
-          <br>
-          Contact: <a href="mailto:spsys17@gmail.com">spsys17@gmail.com</a>
-        </p>
-      </div>
-    </section>
-  </main>
-  <footer class="footer">
-    2025 TikStake. All rights reserved.
-  </footer>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.43.4/dist/index.umd.js"></script>
-  <script src="supabase.js"></script>
-  <script src="script.js"></script>
+    <!-- GitHub Auth -->
+    <button id="github-login">Sign in with GitHub</button>
+    <button id="logout" style="display:none;">Logout</button>
+    <div id="user-info"></div>
+    <p style="font-size: small; color: #888; margin-top: 1em;">
+      Authentication options enabled (<b>see image 1</b>): Email/Password, Phone, and GitHub.
+    </p>
+  </section>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import {
+      getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+      signInWithPopup, GithubAuthProvider, signOut, onAuthStateChanged,
+      signInWithPhoneNumber, RecaptchaVerifier
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC5w0_QVUfdgqyWFmBbkjpYlKTVL3FqjFA",
+      authDomain: "tikstake-1d012.firebaseapp.com",
+      projectId: "tikstake-1d012",
+      storageBucket: "tikstake-1d012.appspot.com",
+      messagingSenderId: "294492488230",
+      appId: "1:294492488230:web:22ef9a3184d10469309ce7",
+      measurementId: "G-941Y8614DD"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GithubAuthProvider();
+
+    // Email/Password logic
+    document.getElementById('email-form').onsubmit = async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (error) {
+        if (error.code === 'auth/user-not-found') {
+          try {
+            await createUserWithEmailAndPassword(auth, email, password);
+          } catch (err) {
+            alert(err.message);
+          }
+        } else {
+          alert(error.message);
+        }
+      }
+    };
+
+    // GitHub logic
+    document.getElementById("github-login").onclick = function() {
+      signInWithPopup(auth, provider).catch((error) => alert(error.message));
+    };
+
+    // Phone logic
+    let confirmationResult = null;
+    let recaptchaRendered = false;
+    function renderRecaptcha() {
+      if (!recaptchaRendered) {
+        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+          'size': 'invisible'
+        }, auth);
+        recaptchaRendered = true;
+      }
+    }
+
+    document.getElementById('phone-form').onsubmit = async (e) => {
+      e.preventDefault();
+      renderRecaptcha();
+      const phoneNumber = document.getElementById('phone-number').value;
+      try {
+        confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
+        document.getElementById('verification-code').style.display = '';
+        document.getElementById('verify-code').style.display = '';
+        alert('SMS sent!');
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
+    document.getElementById('verify-code').onclick = async () => {
+      const code = document.getElementById('verification-code').value;
+      try {
+        await confirmationResult.confirm(code);
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
+    // Logout
+    document.getElementById("logout").onclick = function() {
+      signOut(auth);
+    };
+
+    // UI state
+    onAuthStateChanged(auth, (user) => {
+      const isLoggedIn = !!user;
+      document.getElementById("email-form").style.display = isLoggedIn ? "none" : "";
+      document.getElementById("github-login").style.display = isLoggedIn ? "none" : "";
+      document.getElementById("phone-form").style.display = isLoggedIn ? "none" : "";
+      document.getElementById("logout").style.display = isLoggedIn ? "" : "none";
+      document.getElementById("user-info").textContent = isLoggedIn
+        ? `Logged in as: ${user.phoneNumber || user.email || user.displayName}`
+        : "";
+    });
+  </script>
 </body>
 </html>
