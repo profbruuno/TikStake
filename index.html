@@ -2,44 +2,145 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>TikStake</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TikStake – Secure Crypto Locking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Navigation bar -->
-  <nav>
-    <a href="#landing">Home</a>
-    <a href="#choose-assets">Choose Assets</a>
-    <a href="#exchanges">Exchanges</a>
-    <a href="#user-area">User Area</a>
-  </nav>
 
-  <!-- Landing Section -->
-  <section id="landing">
-    <h1>Welcome to TikStake</h1>
-    <p>Your one-stop platform for managing and tracking your asset portfolio.</p>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container">
+      <a href="#hero" class="logo">TikStake</a>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#overview">Platform</a></li>
+        <li class="dropdown">
+          <a href="javascript:;">More ▼</a>
+          <ul class="dropdown-menu">
+            <li><a href="#overview">Project Overview</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="container hero-content">
+      <h1>Lock Your Crypto<br/>with Discipline</h1>
+      <p>Choose Ethereum, Bitcoin, Solana or Other → pick lock period → get your deposit address.</p>
+      <button class="btn btn-primary" onclick="scrollToSection('flow')">
+        Start Locking
+      </button>
+    </div>
   </section>
 
-  <!-- Asset Selection Section -->
-  <section id="choose-assets">
-    <h2>Choose Your Assets</h2>
-    <!-- Asset selection UI goes here -->
-  </section>
+  <main class="container">
+    <!-- PROJECT OVERVIEW -->
+    <section id="overview" class="section">
+      <h2>Project Overview</h2>
+      <p>
+        TikStake is a custodial crypto-locking platform for users who struggle with long-term holding.
+        Select a lock duration, send your coins, and we keep them secure. Market gains or losses
+        go entirely to you—no returns promised.
+      </p>
+    </section>
 
-  <!-- Exchanges Section -->
-  <section id="exchanges">
-    <h2>Connect with Exchanges</h2>
-    <!-- Exchange connection UI goes here -->
-  </section>
+    <!-- ABOUT US -->
+    <section id="about" class="section bg-light">
+      <h2>About Us</h2>
+      <p>
+        Founded in Helsinki, 2025, TikStake unites blockchain security engineers and financial strategists.
+        Our mission is to help you stay the course in crypto by enforcing discipline through time-locks.
+      </p>
+    </section>
 
-  <!-- User Area Section -->
-  <section id="user-area">
-    <h2>User Area</h2>
-    <!-- Login/authentication UI has been removed as requested. -->
-    <p style="font-size: small; color: #888; margin-top: 1em;">
-      User authentication has been removed from this page.
-    </p>
-  </section>
+    <!-- LOCK FLOW -->
+    <section id="flow" class="section">
+      <h2>Lock Your Asset</h2>
+
+      <!-- View: Asset Selection -->
+      <div id="view-assets" class="flow-view active">
+        <div class="asset-grid">
+          <div class="asset-card" onclick="selectAsset('Ethereum')">
+            <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="" />
+          </div>
+          <div class="asset-card" onclick="selectAsset('Bitcoin')">
+            <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="" />
+          </div>
+          <div class="asset-card" onclick="selectAsset('Solana')">
+            <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="" />
+          </div>
+          <div class="asset-card" onclick="selectAsset('Other')">
+            <i class="icon-phone"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- View: Lock Period -->
+      <div id="view-lock" class="flow-view">
+        <button class="back" onclick="showView('view-assets')">← Back</button>
+        <h3 id="lock-title">Lock For…</h3>
+        <div class="lock-options">
+          <button onclick="selectPeriod('6 months')">6 months</button>
+          <button onclick="selectPeriod('8 months')">8 months</button>
+          <button onclick="selectPeriod('1 year')">1 year</button>
+          <button onclick="selectPeriod('2 years')">2 years</button>
+          <button onclick="selectPeriod('3–10 years')">3–10 years</button>
+        </div>
+        <div class="custom">
+          <input type="text" id="customPeriod" placeholder="Custom (e.g. 5 months)" />
+          <button onclick="selectCustomPeriod()">Use Custom</button>
+        </div>
+      </div>
+
+      <!-- View: Deposit Address -->
+      <div id="view-address" class="flow-view">
+        <button class="back" onclick="showView('view-assets')">← Start Over</button>
+        <h3>Deposit Details</h3>
+        <p><strong>Asset:</strong> <span id="finalAsset"></span></p>
+        <p><strong>Lock Period:</strong> <span id="finalPeriod"></span></p>
+        <p><strong>Address:</strong></p>
+        <pre id="depositAddress"></pre>
+        <button class="btn btn-outline" onclick="copyAddress()">Copy to Clipboard</button>
+      </div>
+    </section>
+
+    <!-- SUPPORTED CRYPTO -->
+    <section id="supported" class="section bg-light">
+      <h2>Supported Cryptocurrencies</h2>
+      <div class="grid-4">
+        <div class="card"><img src="https://cryptologos.cc/logos/ethereum-eth-logo.png"><h4>Ethereum</h4></div>
+        <div class="card"><img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png"><h4>Bitcoin</h4></div>
+        <div class="card"><img src="https://cryptologos.cc/logos/solana-sol-logo.png"><h4>Solana</h4></div>
+        <div class="card"><i class="icon-phone large"></i><h4>Other</h4></div>
+      </div>
+    </section>
+
+    <!-- INVESTORS -->
+    <section id="investors" class="section">
+      <h2>Investor Resources</h2>
+      <p>Download our white paper on security, compliance, and governance.</p>
+      <a class="btn btn-primary" href="docs/TikStake-WhitePaper.pdf" download>
+        Download White Paper (PDF)
+      </a>
+    </section>
+
+    <!-- CONTACT US -->
+    <section id="contact" class="section bg-light">
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:brunomujuni6@gmail.com">brunomujuni6@gmail.com</a></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 TikStake. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
