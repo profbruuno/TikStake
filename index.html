@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <title>TikStake – Long-Term Crypto Locks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Create long-term lock records for your crypto assets.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-layer layer-1"></div>
+  <div class="bg-layer layer-2"></div>
+  <div class="bg-grid"></div>
+
+  <header class="site-header glass">
+    <nav class="nav container">
+      <div class="nav-left">
+        <a href="#" class="brand">
+          <span class="brand-icon">⏳</span>
+            <span class="brand-text">TikStake</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation" aria-controls="primary-nav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <ul class="nav-links" id="primary-nav">
+        <li><a class="active" href="#hero">Home</a></li>
+        <li><a href="#how">How</a></li>
+        <li><a href="#assets">Assets</a></li>
+        <li><a href="#dashboard">My Locks</a></li>
+        <li><button class="btn tiny subtle open-overview" data-modal="overview-modal">Overview</button></li>
+        <li><button class="btn tiny ghost" id="auth-btn" data-modal="auth-modal">Sign In</button></li>
+        <li><button class="btn tiny outline hidden" id="logout-btn">Logout</button></li>
+        <li>
+          <button class="theme-toggle" aria-label="Toggle theme">
+            <span class="theme-icon sun">☀️</span>
+            <span class="theme-icon moon">🌙</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="hero-shell hero--carded">
+    <div class="hero-halo"></div>
+    <div class="hero container hero-layout">
+      <div class="hero-main">
+        <div class="hero-eyebrow">Stay Focused</div>
+        <h1 class="hero-heading">
+          <span class="h-line">Lock It.</span>
+          <span class="h-accent">Leave It.</span>
+        </h1>
+        <p class="hero-value">
+          Pick an asset. Pick a time frame. Save a lock. Track start and end dates.
+        </p>
+
+        <div class="hero-card-grid">
+          <div class="hero-card">
+            <div class="card-icon">🎯</div>
+            <h3>Fast</h3>
+            <p>Create a lock quickly.</p>
+          </div>
+          <div class="hero-card">
+            <div class="card-icon">📆</div>
+            <h3>6m–20y</h3>
+            <p>Clear horizons.</p>
+          </div>
+          <div class="hero-card">
+            <div class="card-icon">👥</div>
+            <h3>Continuity</h3>
+            <p>Optional contact.</p>
+          </div>
+        </div>
+
+        <div class="glass-block">
+          <p>Use this tool to record long-term intent. It helps you ignore short swings.</p>
+        </div>
+
+        <div class="hero-actions-row">
+          <div class="cta-cluster">
+            <button class="btn primary xlg" data-modal="lock-modal" id="quick-lock-btn">Create Lock</button>
+            <button class="btn silent xlg open-overview" data-modal="overview-modal">Overview</button>
+          </div>
+          <div class="hero-chips">
+            <span class="chip">Secure Access</span>
+            <span class="chip">Continuity</span>
+            <span class="chip">Long View</span>
+          </div>
+        </div>
+
+        <div class="hero-scroll-cue" aria-hidden="true">
+          <span class="scroll-dot"></span>
+          <span class="scroll-text">Scroll</span>
+        </div>
+      </div>
+
+      <div class="hero-aside">
+        <div class="stats-panel compact">
+          <div class="stats-bg-gradient"></div>
+          <div class="stats-grid alt">
+            <div class="stat-card">
+              <div class="stat-value">20<span class="stat-unit">yrs</span></div>
+              <div class="stat-label">Max</div>
+            </div>
+            <div class="stat-card highlight">
+              <div class="stat-value" id="asset-count">3</div>
+              <div class="stat-label">Assets</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">6</div>
+              <div class="stat-label">Durations</div>
+            </div>
+            <div class="stat-card ghost">
+              <div class="stat-value">Live</div>
+              <div class="stat-label">Status</div>
+            </div>
+          </div>
+          <div class="stat-foot-note center">Long-term focus</div>
+        </div>
+        <div class="hero-visual-orbs">
+          <div class="orb orb-a"></div>
+          <div class="orb orb-b"></div>
+          <div class="orb orb-c"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section id="how" class="section alt container">
+    <header class="section-head">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">Four steps.</p>
+    </header>
+    <ol class="timeline">
+      <li class="timeline-item"><h3>Sign In</h3><p>Email + password.</p></li>
+      <li class="timeline-item"><h3>Choose Asset</h3><p>Pick from list.</p></li>
+      <li class="timeline-item"><h3>Select Duration</h3><p>6 months to 20 years.</p></li>
+      <li class="timeline-item"><h3>Save & Track</h3><p>See start & end date.</p></li>
+    </ol>
+  </section>
+
+  <!-- ASSETS -->
+  <section id="assets" class="section container">
+    <header class="section-head">
+      <h2 class="section-title">Assets</h2>
+      <p class="section-sub">Local images with fallback.</p>
+    </header>
+    <div class="asset-grid">
+      <button class="asset-card" data-asset="BTC">
+        <div class="asset-front">
+          <img src="Bitcoin.png" alt="Bitcoin" onerror="this.src='Other.png';">
+          <h3>Bitcoin</h3><p class="tag">BTC</p>
+        </div>
+        <div class="asset-back">
+          <p>Limited supply focus.</p>
+          <span class="cta">Create Lock →</span>
+        </div>
+      </button>
+      <button class="asset-card" data-asset="ETH">
+        <div class="asset-front">
+          <img src="Ethereum.png" alt="Ethereum" onerror="this.src='Other.png';">
+          <h3>Ethereum</h3><p class="tag">ETH</p>
+        </div>
+        <div class="asset-back">
+          <p>Smart contract network.</p>
+          <span class="cta">Create Lock →</span>
+        </div>
+      </button>
+      <button class="asset-card" data-asset="SOL">
+        <div class="asset-front">
+          <img src="Solana.png" alt="Solana" onerror="this.src='Other.png';">
+          <h3>Solana</h3><p class="tag">SOL</p>
+        </div>
+        <div class="asset-back">
+          <p>Fast chain.</p>
+          <span class="cta">Create Lock →</span>
+        </div>
+      </button>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="section container">
+    <header class="section-head">
+      <h2 class="section-title">My Locks</h2>
+      <p class="section-sub">Your lock records.</p>
+    </header>
+    <div id="locks-empty" class="empty-state hidden">
+      <p>No locks yet.</p>
+      <button class="btn primary" data-modal="lock-modal">New Lock</button>
+    </div>
+    <div class="locks-table-wrapper hidden" id="locks-wrapper">
+      <table class="locks-table">
+        <thead>
+          <tr>
+            <th>Asset</th>
+            <th>Duration</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="locks-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 TikStake.</p>
+      <div class="footer-links">
+        <button class="link open-overview" data-modal="overview-modal">Overview</button>
+        <button class="link" data-scroll="#how">How</button>
+        <button class="link" data-scroll="#assets">Assets</button>
+        <button class="link" data-scroll="#dashboard">Dashboard</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- OVERVIEW MODAL -->
+  <div id="overview-modal" class="modal" aria-hidden="true" role="dialog">
+    <div class="modal-content panel">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <h2 class="modal-title gradient-inline center">Overview</h2>
+      <div class="modal-body readable">
+        <p>Create a lock for an asset with a chosen duration. Track its end date.</p>
+        <p>Optionally add a continuity contact.</p>
+      </div>
+      <div class="modal-actions"><button class="btn outline modal-close">Close</button></div>
+    </div>
+  </div>
+
+  <!-- AUTH MODAL -->
+  <div id="auth-modal" class="modal" aria-hidden="true" role="dialog">
+    <div class="modal-content panel narrow">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <h2 class="modal-title" id="auth-modal-title">Sign In</h2>
+      <form id="auth-form" class="form">
+        <div class="field">
+          <label for="auth-email">Email</label>
+          <input id="auth-email" name="email" type="email" required>
+        </div>
+        <div class="field">
+          <label for="auth-password">Password</label>
+          <input id="auth-password" name="password" type="password" required minlength="6">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn primary full" id="auth-submit-btn">Sign In</button>
+        </div>
+        <div class="auth-alt">
+          <span id="auth-toggle-msg">Need an account?</span>
+          <button type="button" class="linklike" id="auth-mode-toggle">Register</button>
+        </div>
+        <div id="auth-error" class="error-msg hidden"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- LOCK MODAL -->
+  <div id="lock-modal" class="modal" aria-hidden="true" role="dialog">
+    <div class="modal-content panel narrow">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <h2 class="modal-title">Create Lock</h2>
+      <form id="lock-form" class="form">
+        <div class="field">
+          <label for="asset">Asset</label>
+          <select id="asset" name="asset" required>
+            <option value="">Select</option>
+            <option value="BTC">Bitcoin (BTC)</option>
+            <option value="ETH">Ethereum (ETH)</option>
+            <option value="SOL">Solana (SOL)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="duration">Duration</label>
+          <select id="duration" name="duration" required>
+            <option value="">Select</option>
+            <option value="6">6 Months</option>
+            <option value="12">1 Year</option>
+            <option value="24">2 Years</option>
+            <option value="60">5 Years</option>
+            <option value="120">10 Years</option>
+            <option value="240">20 Years</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="txhash">Reference (Optional)</label>
+          <input id="txhash" name="txhash" type="text" placeholder="Hash / note">
+        </div>
+        <div class="field">
+          <label for="kin">Continuity Name (Optional)</label>
+          <input id="kin" name="kin" type="text" placeholder="Full Name">
+        </div>
+        <div class="field">
+          <label for="kinemail">Continuity Email (Optional)</label>
+          <input id="kinemail" name="kinemail" type="email" placeholder="contact@example.com">
+        </div>
+        <div class="form-note">Saved immediately.</div>
+        <div class="form-actions">
+          <button type="submit" class="btn primary full" id="lock-submit-btn">Save Lock</button>
+        </div>
+        <div id="lock-error" class="error-msg hidden"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- RECEIPT MODAL -->
+  <div id="receipt-modal" class="modal" aria-hidden="true" role="dialog">
+    <div class="modal-content panel narrow">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <h2 class="modal-title">Lock Created</h2>
+      <div id="receipt-details" class="receipt-block"></div>
+      <div class="modal-actions">
+        <button class="btn outline modal-close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
