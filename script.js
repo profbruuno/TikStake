@@ -98,8 +98,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   document.querySelectorAll('.nav-links > li > a').forEach(link => {
     link.addEventListener('click', () => {
-      navMenu.classList.remove('open');
-      menuToggle.classList.remove('open');
+      if (window.innerWidth <= 600) {
+        navMenu.classList.remove('open');
+        menuToggle.classList.remove('open');
+      }
     });
   });
 
@@ -108,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const toggle = drop.querySelector('.dropdown-toggle');
     toggle.addEventListener('click', function(e) {
       e.preventDefault();
+      e.stopPropagation(); // Prevent document click from closing it immediately
       // Close others
       document.querySelectorAll('.dropdown').forEach(d => {
         if (d !== drop) d.classList.remove('open');
@@ -124,14 +127,36 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Menu active state for navigation links
-  const menuLinks = document.querySelectorAll('.nav-links > li > a');
+  // Menu Bubble Animation
+  const menuLinks = document.querySelectorAll('.fancy-menu li a:not(.dropdown-toggle)');
+  const bubble = document.querySelector('.menu-bubble');
+  const fancyMenu = document.querySelector('.fancy-menu');
+
+  function positionBubble(target) {
+    if (!target || !bubble) return;
+    const linkCoords = target.getBoundingClientRect();
+    const menuCoords = fancyMenu.getBoundingClientRect();
+    bubble.style.width = `${linkCoords.width}px`;
+    bubble.style.transform = `translateX(${linkCoords.left - menuCoords.left}px)`;
+  }
+
   menuLinks.forEach(link => {
-    link.addEventListener('click', function () {
+    link.addEventListener('click', function (e) {
+      if (this.closest('.dropdown-menu')) return;
+      e.preventDefault();
       menuLinks.forEach(l => l.classList.remove('active'));
       this.classList.add('active');
+      positionBubble(this);
     });
   });
+
+  // Set initial bubble position
+  const initialActiveLink = document.querySelector('.fancy-menu a.active');
+  if (initialActiveLink) {
+    setTimeout(() => positionBubble(initialActiveLink), 50);
+  }
+  window.addEventListener('resize', () => positionBubble(document.querySelector('.fancy-menu a.active')));
+
 
   // ASSET CARD -> OPEN LOCK MODAL
   const assetCards = document.querySelectorAll('.asset-card');
@@ -161,25 +186,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Duration Slider
-  const durationSlider = document.getElementById('duration-input');
-  const durationLabel = document.getElementById('duration-label');
+  // Duration Buttons
+  const durationContainer = document.querySelector('.duration-options');
+  const durationButtons = durationContainer.querySelectorAll('.duration-btn');
   const hiddenDurationInput = document.getElementById('duration-hidden-input');
-  const durations = [
-    { label: '6 months', value: 6 },
-    { label: '1 year', value: 12 },
-    { label: '2 years', value: 24 },
-    { label: '5 years', value: 60 },
-    { label: '10 years', value: 120 },
-    { label: '20 years', value: 240 },
-  ];
 
-  durationSlider.addEventListener('input', function() {
-    const selected = durations[this.value];
-    durationLabel.textContent = selected.label;
-    hiddenDurationInput.value = selected.value;
+  durationContainer.addEventListener('click', (e) => {
+    const clickedButton = e.target.closest('.duration-btn');
+    if (!clickedButton) return;
+
+    durationButtons.forEach(button => button.classList.remove('active'));
+    clickedButton.classList.add('active');
+    hiddenDurationInput.value = clickedButton.dataset.value;
   });
-
 
   // LOCK FORM SUBMIT
   const lockForm = document.getElementById('lock-form');
@@ -188,7 +207,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Simulate receipt
     const fd = new FormData(lockForm);
     const durationValue = fd.get('duration');
-    const durationLabelText = durations.find(d => d.value == durationValue).label;
+    const selectedBtn = durationContainer.querySelector(`.duration-btn[data-value='${durationValue}']`);
+    const durationLabelText = selectedBtn.textContent;
     const txhash = fd.get('txhash');
     const email = fd.get('email');
     const kin = fd.get('kin');
@@ -214,10 +234,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('receipt-details').innerHTML = receipt;
     document.getElementById('receipt-modal').style.display = 'flex';
     lockForm.reset();
-    // Reset slider to default
-    durationSlider.value = 1;
-    durationLabel.textContent = durations[1].label;
-    hiddenDurationInput.value = durations[1].value;
+    // Reset buttons to default
+    durationButtons.forEach(button => button.classList.remove('active'));
+    durationContainer.querySelector('.duration-btn[data-value="12"]').classList.add('active');
+    hiddenDurationInput.value = "12";
   });
 
   // White Paper Modal
