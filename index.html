@@ -45,7 +45,9 @@
     <section id="overview" class="overview-section card">
       <h2>Project Overview</h2>
       <p class="justified">
-        TikStake lets you lock your cryptocurrency for a period you choose. Send your asset, submit proof and next of kin, and get a digital receipt. Your crypto is safely held until the unlock date—no interest, no hidden terms.
+        <b>TikStake</b> is a non-custodial-inspired crypto holding platform for users who want to lock their assets for up to 20 years, without expecting profits or yield. Our service is simple: choose your asset and lock duration, send funds to a generated address, and provide your transaction proof and next of kin. TikStake keeps your crypto safely until your chosen unlock date.<br><br>
+        Unlike lending, staking, or investment platforms, TikStake does not use your assets to generate returns or take risks on your behalf. We do not support stablecoins, focusing instead on major cryptocurrencies. Each lock is isolated and traceable, and users receive a digital receipt for every deposit. If you are unable to reclaim your asset, your designated next of kin can do so with the provided information and proof.<br><br>
+        TikStake is designed for personal savings, inheritance, or secure asset planning. We believe in security, transparency, and giving you control of your crypto legacy—no profit promises, just peace of mind.
       </p>
       <ul class="overview-list">
         <li>Choose your crypto and lock duration</li>
@@ -59,19 +61,20 @@
       <h2>Supported Crypto Assets</h2>
       <div class="card-grid asset-selection">
         <div class="card asset-card rainbow-bg" data-asset="BTC">
-          <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=026" alt="Bitcoin">
+          <img src="./Bitcoin.png" alt="Bitcoin">
           <p>Bitcoin</p>
         </div>
         <div class="card asset-card rainbow-bg" data-asset="ETH">
-          <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png?v=026" alt="Ethereum">
+          <img src="./Ethereum.png" alt="Ethereum">
           <p>Ethereum</p>
         </div>
         <div class="card asset-card rainbow-bg" data-asset="SOL">
-          <img src="https://cryptologos.cc/logos/solana-sol-logo.png?v=026" alt="Solana">
+          <img src="./Solana.png" alt="Solana">
           <p>Solana</p>
         </div>
         <div class="card asset-card rainbow-bg" data-asset="Other">
-          <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png?v=026" alt="BNB and other assets">
+          <!-- BNB and other assets fall under "Other" and use the Other.png image in repo root -->
+          <img src="./Other.png" alt="BNB and other assets">
           <p>Other</p>
         </div>
       </div>
@@ -85,9 +88,7 @@
       <h2 style="text-align:center;">TikStake White Paper</h2>
       <div id="whitepaper-details" class="justified">
         <p>
-          <b>TikStake</b> is a non-custodial-inspired crypto holding platform for users who want to lock their assets for up to 20 years, without expecting profits or yield. Our service is simple: choose your asset and lock duration, send funds to a generated address, and provide your transaction proof and next of kin. TikStake keeps your crypto safely until your chosen unlock date.<br><br>
-          Unlike lending, staking, or investment platforms, TikStake does not use your assets to generate returns or take risks on your behalf. We do not support stablecoins, focusing instead on major cryptocurrencies. Each lock is isolated and traceable, and users receive a digital receipt for every deposit. If you are unable to reclaim your asset, your designated next of kin can do so with the provided information and proof.<br><br>
-          TikStake is designed for personal savings, inheritance, or secure asset planning. We believe in security, transparency, and giving you control of your crypto legacy—no profit promises, just peace of mind.
+          <!-- whitepaper content here -->
         </p>
       </div>
     </div>
@@ -97,20 +98,8 @@
   <div id="lock-modal" class="modal">
     <div class="modal-content">
       <button class="modal-close">&times;</button>
-      <h2>Lock <span id="asset-name">Asset</span></h2>
+      <h2>Lock Your Asset</h2>
       <form id="lock-form">
-        <label>
-          Choose lock duration:
-          <div class="duration-options">
-            <button type="button" class="duration-btn" data-value="6">6M</button>
-            <button type="button" class="duration-btn active" data-value="12">1Y</button>
-            <button type="button" class="duration-btn" data-value="24">2Y</button>
-            <button type="button" class="duration-btn" data-value="60">5Y</button>
-            <button type="button" class="duration-btn" data-value="120">10Y</button>
-            <button type="button" class="duration-btn" data-value="240">20Y</button>
-          </div>
-          <input type="hidden" name="duration" id="duration-hidden-input" value="12">
-        </label>
         <label>
           Transaction Hash:
           <input type="text" name="txhash" required placeholder="Paste your transaction hash">
