@@ -17,6 +17,7 @@
         <span class="bar"></span>
       </button>
       <ul class="nav-links fancy-menu">
+        <div class="menu-bubble"></div>
         <li><a href="#" class="active">Home</a></li>
         <li><a href="#overview">Overview</a></li>
         <li><a href="#assets">Assets</a></li>
@@ -69,9 +70,9 @@
           <img src="https://cryptologos.cc/logos/solana-sol-logo.png?v=026" alt="Solana">
           <p>Solana</p>
         </div>
-        <div class="card asset-card rainbow-bg" data-asset="BNB">
-          <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png?v=026" alt="BNB">
-          <p>BNB</p>
+        <div class="card asset-card rainbow-bg" data-asset="Other">
+          <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png?v=026" alt="BNB and other assets">
+          <p>Other</p>
         </div>
       </div>
     </section>
@@ -99,12 +100,14 @@
       <h2>Lock <span id="asset-name">Asset</span></h2>
       <form id="lock-form">
         <label>
-          Choose lock duration: <span id="duration-label" class="duration-value-display">1 year</span>
-          <div class="duration-slider">
-            <input type="range" min="0" max="5" value="1" id="duration-input" name="duration_slider" class="slider">
-            <div class="slider-labels">
-              <span>6M</span><span>1Y</span><span>2Y</span><span>5Y</span><span>10Y</span><span>20Y</span>
-            </div>
+          Choose lock duration:
+          <div class="duration-options">
+            <button type="button" class="duration-btn" data-value="6">6M</button>
+            <button type="button" class="duration-btn active" data-value="12">1Y</button>
+            <button type="button" class="duration-btn" data-value="24">2Y</button>
+            <button type="button" class="duration-btn" data-value="60">5Y</button>
+            <button type="button" class="duration-btn" data-value="120">10Y</button>
+            <button type="button" class="duration-btn" data-value="240">20Y</button>
           </div>
           <input type="hidden" name="duration" id="duration-hidden-input" value="12">
         </label>
