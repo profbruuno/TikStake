@@ -92,6 +92,7 @@ body {
   transform: translateY(-8px) rotate(-45deg);
 }
 .fancy-menu {
+  position: relative;
   display: flex;
   gap: 1.3rem;
   margin: 0;
@@ -108,32 +109,39 @@ body {
 }
 
 .fancy-menu li a {
+  position: relative;
+  z-index: 2;
   display: inline-block;
   color: #fff;
   font-weight: 600;
   font-size: 1.13rem;
   padding: 0.65rem 1.5rem;
   border-radius: 32px;
-  background: linear-gradient(90deg, #06b6d4 0%, #8b5cf6 100%);
+  background: transparent;
   margin: 0 0.1rem;
-  box-shadow: 0 2px 12px #8b5cf644;
+  box-shadow: none;
   text-decoration: none;
   letter-spacing: 1px;
-  transition: 
-    background 0.22s,
-    color 0.16s,
-    box-shadow 0.18s,
-    transform 0.12s;
+  transition: color 0.3s;
 }
 
 .fancy-menu li a:hover,
 .fancy-menu li a:focus,
 .fancy-menu li a.active {
-  background: linear-gradient(90deg, #f472b6 0%, #60a5fa 100%);
   color: #fff;
-  box-shadow: 0 4px 20px #f472b688, 0 2px 12px #06b6d488;
-  transform: scale(1.08);
   outline: none;
+}
+
+.menu-bubble {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 32px;
+  background: linear-gradient(90deg, #06b6d4 0%, #8b5cf6 100%);
+  box-shadow: 0 2px 12px #8b5cf644;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* Dropdown Styles */
@@ -222,6 +230,15 @@ body {
     padding: 0.65rem 1rem;
     margin-bottom: 0.4rem;
     width: 100%;
+    background: linear-gradient(90deg, #06b6d4 0%, #8b5cf6 100%);
+    box-shadow: 0 2px 12px #8b5cf644;
+  }
+  .fancy-menu li a.active {
+    background: linear-gradient(90deg, #f472b6 0%, #60a5fa 100%);
+    box-shadow: 0 4px 20px #f472b688, 0 2px 12px #06b6d488;
+  }
+  .menu-bubble {
+    display: none;
   }
   .dropdown-menu {
     position: static;
@@ -511,53 +528,34 @@ body {
   color: #8b5cf6;
 }
 
-/* Duration Slider */
-.duration-value-display {
+/* Duration Button Group */
+.duration-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+.duration-btn {
+  background-color: #f3e8ff;
   color: #8b5cf6;
+  border: 2px solid #e0e7ff;
+  border-radius: 8px;
+  padding: 0.7rem 0.5rem;
+  font-size: 0.95rem;
   font-weight: 700;
-}
-.duration-slider {
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-.slider {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 8px;
-  border-radius: 4px;
-  background: #e0e7ff;
-  outline: none;
-  opacity: 0.9;
-  transition: opacity .2s;
-}
-.slider:hover {
-  opacity: 1;
-}
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: linear-gradient(90deg, #06b6d4 0%, #8b5cf6 100%);
   cursor: pointer;
-  box-shadow: 0 1px 8px #8b5cf688;
+  transition: all 0.2s;
 }
-.slider::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
+.duration-btn:hover {
+  background-color: #e0e7ff;
+  border-color: #8b5cf6;
+}
+.duration-btn.active {
   background: linear-gradient(90deg, #06b6d4 0%, #8b5cf6 100%);
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 1px 8px #8b5cf688;
-}
-.slider-labels {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.6rem;
-  font-size: 0.85rem;
-  color: #6b7280;
+  color: #fff;
+  border-color: #8b5cf6;
+  box-shadow: 0 2px 12px #8b5cf666;
+  transform: scale(1.05);
 }
 
 
